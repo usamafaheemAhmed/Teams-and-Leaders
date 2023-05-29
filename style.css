@@ -1,0 +1,336 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
+.table{
+    color: white;
+}
+
+body{
+    font-family: 'Raleway', sans-serif;
+}
+
+.input-group-text{
+    /* background-color: #340952 ; */
+    background-color: #340952 ;
+    color: white;
+    border: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    display: none;
+}
+
+.form-control{
+    width: 100%;
+    border: 1px solid #340952;
+    font-family: 'Oswald', sans-serif;
+    font-size :20px;
+    color: rgb(0, 0, 0);
+
+}
+.form-control:focus{
+    border: 1px solid #FF6813;
+}
+.form-control::placeholder{
+ font-family: 'Oswald', sans-serif;
+    font-size :20px;
+    color: rgb(196, 196, 196);
+}
+label{
+ font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #000000;
+}
+
+#limit{
+ font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #c7c7c7;
+}
+
+#showMore{
+    background-color: none;
+    border: none;
+    color: black;
+    font-size: 20px;
+}
+#modifyMore{
+    background-color: none;
+    border: none;
+    color: black;
+    font-size: 20px;
+}
+
+li{
+ font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    font-style: normal;
+}
+.card{
+    background-color: #340952 ;
+    color: white;
+    border-radius: 15px;
+}
+.card-header{
+    background-color: #340952 ;
+    color: white;
+
+}
+
+#test{
+
+    border-bottom:block;
+    border-top:none;
+    border-left:none;
+    border-right:none;
+}
+.pdf{
+    background-color: #FF6813;
+    color: #ffffff;
+    border-color: #FF6813;
+    border-radius: 8px;
+ font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 28px;
+    font-style: normal;
+    width: 100%;
+}
+.pdf:hover{
+    background-color: #ffffff;
+    color: #FF6813;
+    border-color: #FF6813;
+    box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.137);
+}
+.pdf:focus{
+    background-color: #ffffff;
+    color: #FF6813;
+    border-color: #FF6813;
+    box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.137);
+}
+
+
+#companyName{
+ font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    font-style: normal;
+    width: 100%;
+}
+#workEmail{
+ font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    font-style: normal;
+    width: 100%;
+}
+
+@media only screen and (max-width: 767px) {
+
+    .container-fluid {
+    padding-left: 50px;
+    padding-right: 50px;
+    margin: 0px, 0px, 0px, 0px;
+    
+}
+
+#resultCard{
+    padding-top: 20px;
+}
+  }
+
+
+  ::-ms-tooltip {
+
+    background-color: #0000;
+    color: #ffff;
+    border: 1px solid #0000;
+  }
+  .btn-primary{
+    background-color: #340952!important;
+    box-shadow: none;
+    border: 1px solid #340952;
+}
+.btn-primary:focus{
+    background-color: #340952!important;
+    box-shadow: none;
+    border: 1px solid #340952;
+}
+.sResult{
+    color: #FF6813;
+}
+
+p{
+    font-weight: 600;
+    font-size: 12px;
+
+}
+
+/* _____________________Arrow _Css________________________ */
+
+.arrow-icon {
+    background-color:rgb(255, 255, 255);
+    color: black;
+    height: 2.8em;
+    width: 2.8em;
+    display:block;
+    padding: 0.5em;
+    margin: 1em auto;
+    position: relative;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .left-bar {
+    position: absolute;
+    background-color: transparent;
+    top: 0;
+    left:0;
+    width: 40px;
+    height: 10px;
+    display: block;
+    transform: rotate(35deg);
+    float: right;
+    border-radius: 2px;
+  
+  }
+  .left-bar:after {
+      content:"";
+      background-color: black;
+      width: 40px;
+      height: 10px;
+      display: block;
+      float: right;
+      border-radius: 6px 10px 10px 6px;
+      transition: all 0.5;
+      z-index: -1;
+    }
+  
+  
+  
+  .right-bar {
+    position: absolute;
+    background-color: transparent;
+    top: 0px;
+    left:26px;
+    width: 40px;
+    height: 10px;
+    display: block;
+    transform: rotate(-35deg);
+    float: right;
+    border-radius: 2px;
+  
+  }
+  .right-bar:after {
+      content:"";
+      background-color: black;
+      width: 40px;
+      height: 10px;
+      display: block;
+      float: right;
+      border-radius: 10px 6px 6px 10px;
+      transition: all 0.5 cubic-bezier(.25,1.7,.35,.8);
+      z-index: -1;
+    }
+  
+  
+      .open   .left-bar:after {
+      transform-origin: center center;
+      transform: rotate(-70deg);
+    }
+    .open  .right-bar:after {
+      transform-origin: center center;
+      transform: rotate(70deg);
+    }
+    h6,h3{
+        text-transform: capitalize;
+    }
+    .blue{
+        color: #340952 !important;
+    }
+
+    .irs--big .irs-bar {
+        top: 33px;
+        height: 12px;
+        background-color: #92bce0;
+        border: 1px solid #340952;
+        background: linear-gradient(to bottom, #ffffff 0%, #340952 30%, #340952 100%);
+        box-shadow: inset 0 0 1px 1px rgb(255 255 255 / 50%);
+    }
+
+    .irs--big .irs-from, .irs--big .irs-to, .irs--big .irs-single {
+        color: white;
+        text-shadow: none;
+        /* padding: 1px 5px; */
+        background-color: #340952;
+        background: linear-gradient(to bottom, #340952 0%, #340952 100%);
+        border-radius: 3px;
+    }
+
+    .irs--big .irs-handle {
+        top: 25px;
+        width: 30px;
+        height: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background-color: #cbcfd5;
+        background: linear-gradient(to bottom, #FF6813 0%, #FF6813 30%, #FF6813 100%);
+        box-shadow: 1px 1px 2px rgb(0 0 0 / 20%), inset 0 0 3px 1px #ffffff;
+        border-radius: 30px;
+    }
+
+
+    .irs--big .irs-handle:hover {
+        top: 25px;
+        width: 30px;
+        height: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background-color: #cbcfd5;
+        background: linear-gradient(to bottom, #FF6813 0%, #FF6813 30%, #FF6813 100%);
+        box-shadow: 1px 1px 2px rgb(0 0 0 / 20%), inset 0 0 3px 1px #ffffff;
+        border-radius: 30px;
+    }
+    
+    .irs--big .irs-handle:active {
+        top: 25px;
+        width: 30px;
+        height: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background-color: #cbcfd5;
+        background: linear-gradient(to bottom, #FF6813 0%, #FF6813 30%, #FF6813 100%);
+        box-shadow: 1px 1px 2px rgb(0 0 0 / 20%), inset 0 0 3px 1px #ffffff;
+        border-radius: 30px;
+    }
+
+
+
+.modal label{
+    padding: 0, 0, 0, 0;
+    margin: 0, 0, 0, 0;
+    font-size: 15px;
+}
+.modal-title{
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #000000;
+}
+
+
+
+
+/*     
+element.style {
+    width: 100%;
+    
+    display: block;
+} */

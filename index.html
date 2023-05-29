@@ -1,0 +1,2633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta
+            content="width=device-width, initial-scale=1,shrink-to-fit=no"
+            name="viewport"/>
+
+    <!-- Bootstrap CSS -->
+    <link
+            crossorigin="anonymous"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+            integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+            rel="stylesheet"
+    />
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"
+            rel="stylesheet"
+    />
+    <link
+            crossorigin="anonymous"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            referrerpolicy="no-referrer"
+            rel="stylesheet"
+    />
+    <link href="./style.css" rel="stylesheet"/>
+
+    <title>Cost of Team and Leaders Turnover Calculator</title>
+
+
+</head>
+<body>
+<!-- <h1>Hello, world!</h1> -->
+
+<div class="container-fluid pt-5">
+    <h1 class="text-center mb-5" style="font-weight: 600">
+        Turnover Costs What…?
+    </h1>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-3">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                </div>
+                <input
+                        class="form-control col-md-12 shadow"
+                        id="annualRevenueEmployeeProfit"
+                        min="0"
+                        name="annualRevenueEmployeeProfit"
+                        onblur="annualRevenueEmployeeProfitLimit()" onkeyup="getResult()" placeholder="$1,000,000"
+                        type="number" value="1000000"
+                />
+            </div>
+        </div>
+        <label class="pt-2 ml-3 text-center" for="annualRevenueEmployeeProfit">Enter
+            Annual Revenue</label>
+
+
+    </div>
+    <div class="row">
+        <div class="col-md-4 p-3">
+            <h1 class="text-center mb-5" style="color: #340952; font-weight: 600">
+                Team
+            </h1>
+            <div
+                    class="row"
+                    data-placement="top"
+                    data-toggle="tooltip"
+                    title="How many people (members) on the team (excluding leaders)?
+            Everyone on payroll.">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label class="pt-2 ml-3 float-end" for="numberOfEmployees">Average
+                                staff size
+                            </label>
+                        </div>
+                        <div class="col-md-5">
+                            <input
+                                    class="form-control shadow"
+                                    id="numberOfEmployees"
+                                    name="numberOfEmployees"
+                                    onblur="numberOfEmployeesLimit()"
+                                    onkeyup="getResult()"
+                                    placeholder="500" type="number"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <input
+                            class="js-range-slider"
+                            id="employeeNumberRange"
+                            name="my_range"
+                            onchange="changeEmployeeNumber()"
+                            type="text"
+                            value="500"
+                    />
+                </div>
+
+                <div class="col-md-12 pt-2" id="limit">
+                    <p>1<span class="float-right">500</span></p>
+                </div>
+            </div>
+            <div
+                    class="row"
+                    data-placement="top"
+                    data-toggle="tooltip"
+                    title="How many W2’s did you print last year for team members?">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label class="pt-2 ml-3" for="numberOfW2S">Number of W2's
+                            </label>
+                        </div>
+                        <div class="col-md-5">
+                            <input
+                                    class="form-control shadow"
+                                    id="numberOfW2S"
+                                    name="numberOfW2S"
+                                    onblur="numberOfW2SLimit()"
+                                    onkeyup="getResult()"
+                                    placeholder="125" type="number"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <input
+                            class="js-range-slider form-control shadow"
+                            id="employeesLeaveEachYear"
+                            name="my_range"
+                            onchange="changeEmployeeLeave()"
+                            type="text"
+                            value="500"
+                    />
+                </div>
+
+                <!-- <input type="range" class="custom-range" max="5000" min="0"
+                                    select="500"> -->
+                <div class="col-md-12 pt-2" id="limit">
+                    <p>1<span class="float-right">1250</span></p>
+                </div>
+            </div>
+            <div
+                    class="row"
+                    data-placement="top"
+                    data-toggle="tooltip"
+                    title="Average hourly payrate, include everything from PTO,
+            Bonuses, insurance etc.., round up to nearest dollar.">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label class="pt-2 ml-3" for="averageAnnualSalary">Average
+                                hourly salary
+                            </label>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input
+                                        class="form-control shadow"
+                                        id="averageAnnualSalary"
+                                        name="averageAnnualSalary"
+                                        onblur="averageAnnualSalaryLimit()"
+                                        onkeyup="getResult()"
+                                        placeholder="$ 68 " type="number"
+                                />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <input
+                            class="js-range-slider form-control shadow"
+                            id="annualSalary"
+                            name="my_range"
+                            onchange="changeAnnualSalary()"
+                            type="text"
+                    />
+                </div>
+
+                <div class="col-md-12 pt-2" id="limit">
+                    <p>$7.25 <span class="float-right">$25.00 </span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 p-3">
+            <h1 class="text-center mb-5" style="color: #ff6813; font-weight: 600">
+                Leaders
+            </h1>
+            <div
+                    class="row"
+                    data-placement="top"
+                    data-toggle="tooltip"
+                    title="How many people on the leadership / supervisory team?
+            Everyone on payroll, including you. ">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label class="pt-2 ml-3" for="numberOfSupervisor">Average
+                                staff size
+                            </label>
+                        </div>
+                        <div class="col-md-5">
+                            <input
+                                    class="form-control shadow"
+                                    id="numberOfSupervisor"
+                                    name="numberOfSupervisor"
+                                    onblur="numberOfSupervisorLimit()"
+                                    onkeyup="getResult()"
+                                    placeholder="500" type="number"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <input
+                            class="js-range-slider"
+                            id="supervisorNumberRange"
+                            name="my_range"
+                            onchange="changeSupervisorNumber()"
+                            type="text"
+                            value="500"
+                    />
+                </div>
+
+                <div class="col-md-12 pt-2" id="limit">
+                    <p>1<span class="float-right">100</span></p>
+                </div>
+            </div>
+            <div
+                    class="row"
+                    data-placement="top"
+                    data-toggle="tooltip"
+                    title="How many W2’s did you print last year for leaders /
+            supervisors? Including you.">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label
+                                    class="pt-2 ml-3"
+                                    for="numberOfSupervisorW2S"
+                                    id="supervisor">
+                                Number of W2's
+                            </label>
+                        </div>
+                        <div class="col-md-5">
+                            <input
+                                    class="form-control shadow"
+                                    id="numberOfSupervisorW2S"
+                                    name="numberOfSupervisorW2S"
+                                    onblur="numberOfSupervisorW2SLimit()"
+                                    onkeyup="getResult()"
+                                    placeholder="125" type="number"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <input
+                            class="js-range-slider form-control shadow"
+                            id="supervisorLeaveEachYear"
+                            name="my_range"
+                            onchange="changeSupervisorLeave()"
+                            type="text"
+                            value="500"
+                    />
+                </div>
+
+                <!-- <input type="range" class="custom-range" max="5000" min="0"
+                                    select="500"> -->
+                <div class="col-md-12 pt-2" id="limit">
+                    <p>1<span class="float-right">500</span></p>
+                </div>
+            </div>
+            <div
+                    class="row"
+                    data-placement="top"
+                    data-toggle="tooltip"
+                    title="Average hourly payrate, include everything from PTO, Bonuses,
+            insurance
+            etc.., round up to nearest dollar. If a salary figure estimate the
+            hourly rate. ">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label class="pt-2 ml-3" for="averageSupervisorAnnualSalary">Average
+                                hourly salary</label>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input
+                                        class="form-control shadow"
+                                        id="averageSupervisorAnnualSalary"
+                                        name="averageSupervisorAnnualSalary"
+                                        onblur="averageSupervisorAnnualSalaryLimit()"
+                                        onkeyup="getResult()"
+                                        placeholder="$ 68 k"
+                                        type="number"/>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <input
+                            class="js-range-slider form-control shadow"
+                            id="supervisorAnnualSalary"
+                            name="my_range"
+                            onchange="changeSupervisorAnnualSalary()"
+                            type="text"
+                            value="500"
+                    />
+                </div>
+
+                <div class="col-md-12 pt-2" id="limit">
+                    <p>$10.00 <span class="float-right">$40.00</span></p>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-md-4 mt-4" id="costOfTurnover"> -->
+        <div class="col-md-4 mt-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12" id="resultCard">
+                            <div class="card mb-5" id="cardPrint">
+                                <div
+                                        class="card-header"
+                                        style="
+                      border-radius: 15px;
+                      border-bottom-left-radius: 0px;
+                      border-bottom-right-radius: 0px;
+                      ">
+                                    <h4 class="text-center">Annual cost of Turnover</h4>
+                                    <h1 class="text-center" id="result"></h1>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div
+                                                class="collapse table-responsive"
+                                                id="collapseResult">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">
+                                                        <p class="text-center">% of ANNUAL SALARY</p>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <p class="text-center">
+                                                            Total Cost per Turnover
+                                                        </p>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <p class="text-center">Total Annual Cost</p>
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <p class="text-center">Team</p>
+                                                    </th>
+                                                    <td>
+                                                        <p
+                                                                class="text-center"
+                                                                id="employeePerOfAnnualSalary"></p>
+                                                    </td>
+                                                    <td>
+                                                        <p
+                                                                class="text-center"
+                                                                id="totalCostOfTurnoverPerResourceEmployeeType"></p>
+                                                    </td>
+                                                    <td>
+                                                        <p
+                                                                class="text-center"
+                                                                id="totalAnnualCostOfTurnoverEmployee"></p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <p class="text-center">Leaders</p>
+                                                    </th>
+                                                    <td>
+                                                        <p
+                                                                class="text-center"
+                                                                id="supervisorPerOfAnnualSalary"></p>
+                                                    </td>
+                                                    <td>
+                                                        <p
+                                                                class="text-center"
+                                                                id="totalCostOfTurnoverPerResourceSupervisorType"></p>
+                                                    </td>
+                                                    <td>
+                                                        <p
+                                                                class="text-center"
+                                                                id="totalAnnualCostOfTurnoverSupervisor"></p>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="col-md-12">
+                                                <h6 class="text-center mt-4 mb-4">
+                                                    Annual Cost Savings and Additional Revenue
+                                                </h6>
+                                                <div class="row table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th scope="col"></th>
+                                                            <th scope="col">
+                                                                <p class="text-center">Cost Savings</p>
+                                                            </th>
+                                                            <th scope="col">
+                                                                <p class="text-center">
+                                                                    Expected Additional Revenue
+                                                                </p>
+                                                            </th>
+                                                            <th scope="col">
+                                                                <p class="text-center">
+                                                                    Bottom Line Annual Impact
+                                                                </p>
+                                                            </th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <th scope="row">
+                                                                <p class="text-center">Expected</p>
+                                                            </th>
+                                                            <td>
+                                                                <p
+                                                                        class="text-center"
+                                                                        id="costSaving"></p>
+                                                            </td>
+                                                            <td>
+                                                                <p
+                                                                        class="text-center"
+                                                                        id="expectedAdditionalRevenueAfterCogsForEmployee"></p>
+                                                            </td>
+                                                            <td>
+                                                                <p
+                                                                        class="text-center"
+                                                                        id="totalBottomLineProfit"></p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">
+                                                                <p class="text-center">Typical</p>
+                                                            </th>
+                                                            <td>
+                                                                <p
+                                                                        class="text-center"
+                                                                        id="costSavingForTypical"></p>
+                                                            </td>
+                                                            <td>
+                                                                <p
+                                                                        class="text-center"
+                                                                        id="expectedAdditionalRevenueAfterCogsForTypical"></p>
+                                                            </td>
+                                                            <td>
+                                                                <p
+                                                                        class="text-center"
+                                                                        id="totalBottomLineProfitForTypical"></p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">
+                                                                <p class="text-center">Aggressive</p>
+                                                            </th>
+                                                            <td>
+                                                                <p
+                                                                        class="text-center"
+                                                                        id="costSavingForAggressive"></p>
+                                                            </td>
+                                                            <td>
+                                                                <p
+                                                                        class="text-center"
+                                                                        id="expectedAdditionalRevenueAfterCogsForAggressive"></p>
+                                                            </td>
+                                                            <td>
+                                                                <p
+                                                                        class="text-center"
+                                                                        id="totalBottomLineProfitForAggressive"></p>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a
+                                                aria-controls="hourlyRate"
+                                                aria-expanded="false"
+                                                class="btn col-md-12 mt-2"
+                                                data-target="#collapseResult"
+                                                data-toggle="collapse"
+                                                id="modifyMore2"
+                                                onclick="advanceOptions()"
+                                                style="color: #ffff"
+                                                type="button">
+                                            Advanced Result
+                                            <i class="fa-solid fa-chevron-down" id="down8"></i>
+                                            <i class="fa-solid fa-chevron-up d-none" id="up8"></i>
+                                        </a>
+                                        <h6 class="text-center p-3">
+                                            Want to dive deeper into these results with a PDF sent
+                                            to your inbox? Let us know where to send it.
+                                        </h6>
+                                        <button
+                                                class="btn pdf text-center col-md-12 mt-3"
+                                                data-target="#modelId" data-toggle="modal">
+                                            Get your PDF
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Remember that all of the bellow range slider controls are in supervisorScript.js file -->
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="collapse" id="hourlyRate">
+        <h1 class="text-center mb-4" style="color: #340952">
+            Following attributes are shared by both <br/>
+            Team and <span style="color: #ff6813">Leaders</span>
+        </h1>
+        <div class="container-fluid">
+            <div class="row">
+                <!-- <div class="col-md-1 "></div> -->
+                <div class="col-md-6">
+                    <div class="row" data-placement="top"
+                         data-toggle="tooltip"
+                         title="Unique Average Rate for Mentoring and
+                Training">
+                        <div class="col-md-8">
+                            <label
+                                    class="pt-2 ml-3"
+                                    for="mentorTrainingManagerHourlyRate">
+                                Mentor/Training manager hourly rate</label>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input
+                                        class="form-control shadow"
+                                        id="mentorTrainingManagerHourlyRate"
+                                        name="mentorTrainingManagerHourlyRate"
+                                        onblur="mentorTrainingManagerHourlyRateLimit()"
+                                        onkeyup="getResult()"
+                                        placeholder="15"
+                                        type="number"
+                                /></div>
+
+                        </div>
+
+                        <div class="col-md-12">
+                            <input
+                                    class="js-range-slider form-control shadow"
+                                    id="mentorTrainingManagerHourlyRateRange"
+                                    name="my_range"
+                                    onchange="changeMentorTrainingManagerHourlyRateRange()"
+                                    type="text"
+                                    value="500"
+                            />
+                        </div>
+                        <div class="col-md-12 pt-2" id="limit">
+                            <p>$10.00<span class="float-right">$50.00</span></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row" data-placement="top"
+                                 data-toggle="tooltip"
+                                 title="Unique Average Rate for Manager
+                    responsible for Hiring and Firing (Owner?)">
+                                <div class="col-md-8">
+                                    <label
+                                            class="pt-2 ml-3"
+                                            for="hiringTerminationManagerHourlyRate">Hiring / Termination manager hourly
+                                        rate</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">$</span>
+                                        </div>
+                                        <input
+                                                class="form-control shadow"
+                                                id="hiringTerminationManagerHourlyRate"
+                                                name="hiringTerminationManagerHourlyRate"
+                                                onblur="hiringTerminationManagerHourlyRateLimit()"
+                                                onkeyup="getResult()"
+                                                placeholder="15"
+                                                type="number"
+                                        /></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <input
+                                    class="js-range-slider form-control shadow"
+                                    id="hiringTerminationManagerHourlyRateRange"
+                                    name="my_range"
+                                    onchange="changeHiringTerminationManagerHourlyRateRange()"
+                                    type="text"
+                                    value="500"
+                            />
+                        </div>
+                        <div class="col-md-12 pt-2" id="limit">
+                            <p>$10.00<span class="float-right">$50.00</span></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row" data-placement="top"
+                                 data-toggle="tooltip"
+                                 title="Ave Hours per Working Day per Employee">
+                                <div class="col-md-8">
+                                    <label class="pt-2 ml-3" for="aveHoursInWorkingDay">Ave
+                                        hours in working day</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input
+                                            class="form-control shadow"
+                                            id="aveHoursInWorkingDay"
+                                            name="aveHoursInWorkingDay"
+                                            onblur="aveHoursInWorkingDayLimit()"
+                                            onkeyup="getResult()"
+                                            placeholder="15"
+                                            type="number"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <input
+                                    class="js-range-slider form-control shadow"
+                                    id="aveHoursInWorkingDayRange"
+                                    name="my_range"
+                                    onchange="changeAveHoursInWorkingDayRange()"
+                                    type="text"
+                            />
+                        </div>
+                        <div class="col-md-12 pt-2" id="limit">
+                            <p>4.0<span class="float-right">10.0</span></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row" data-placement="top"
+                                 data-toggle="tooltip"
+                                 title="Total ANNUAL Recruiting Costs">
+                                <div class="col-md-8">
+                                    <label class="pt-2 ml-3" for="annualRecruitingCosts ">Annual
+                                        recruiting costs
+                                    </label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">$</span>
+                                        </div>
+                                        <input
+                                                class="form-control shadow"
+                                                id="annualRecruitingCosts"
+                                                name="annualRecruitingCosts"
+                                                onblur="annualRecruitingCostsLimit()"
+                                                onkeyup="getResult()"
+                                                placeholder="$50,000"
+                                                type="number"
+                                        /></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <input
+                                    class="js-range-slider form-control shadow"
+                                    id="annualRecruitingCostsRange"
+                                    name="my_range"
+                                    onchange="changeAnnualRecruitingCostsRange()"
+                                    type="text"
+                            />
+                        </div>
+                        <div class="col-md-12 pt-2" id="limit">
+                            <p>$ 0<span class="float-right">$ 500,000</span></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-md-1 "></div> -->
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row" data-placement="top"
+                                 data-toggle="tooltip"
+                                 title="Average Working Days per Year per
+                    Employee">
+                                <div class="col-md-7">
+                                    <label class="pt-2 ml-3" for="aveWorkingDaysPerEmployee">
+                                        Ave working days per year</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <input
+                                            class="form-control shadow"
+                                            id="aveWorkingDaysPerEmployee"
+                                            name="aveWorkingDaysPerEmployee"
+                                            onblur="aveWorkingDaysPerEmployeeLimit()"
+                                            onkeyup="getResult()"
+                                            placeholder="15"
+                                            type="number"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <input
+                                    class="js-range-slider form-control shadow"
+                                    id="aveWorkingDaysPerEmployeeRange"
+                                    name="my_range"
+                                    onchange="changeAveWorkingDaysPerEmployeeRange()"
+                                    type="text"
+                                    value="500"
+                            />
+                        </div>
+
+                        <div class="col-md-12 pt-2" id="limit">
+                            <p>0<span class="float-right">235</span></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row pt-3" data-placement="top"
+                                 data-toggle="tooltip"
+                                 title="Expected Savings from Companies that Use
+                    Our Smart / Rockstar Products, Processes
+                    and Services">
+                                <div class="col-md-7">
+                                    <label class="pt-2 ml-3" for="savingsExpected">Savings -
+                                        Expected
+                                    </label>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group mb-3">
+                                        <input
+                                                class="form-control shadow"
+                                                id="savingsExpected"
+                                                name="savingsExpected"
+                                                onblur="savingsExpectedLimit()"
+                                                onkeyup="getResult()"
+                                                placeholder="15" type="number"
+                                        />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <input
+                                    class="js-range-slider form-control shadow"
+                                    id="savingsExpectedRange"
+                                    name="my_range"
+                                    onchange="changeSavingsExpectedRange()"
+                                    type="text"
+                                    value="500"
+                            />
+                        </div>
+                        <div class="col-md-12 pt-2" id="limit">
+                            <p>10%<span class="float-right">35%</span></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row" data-placement="top"
+                                 data-toggle="tooltip"
+                                 title="Typical or Average Savings from Companies
+                    that Use Our Smart / Rockstar Products,
+                    Processes and Services">
+                                <div class="col-md-7">
+                                    <label class="pt-2 ml-3" for="savingsTypical ">Savings -
+                                        Typical</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group ">
+                                        <input
+                                                class="form-control shadow"
+                                                id="savingsTypical"
+                                                name="savingsTypical"
+                                                onblur="savingsTypicalLimit()"
+                                                onkeyup="getResult()"
+                                                placeholder="15" type="number"
+                                        />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="col-md-12">
+                            <input
+                                    class="js-range-slider form-control shadow"
+                                    id="savingsTypicalRange"
+                                    name="my_range"
+                                    onchange="changeSavingsTypicalRange()"
+                                    type="text"
+                                    value="500"
+                            />
+                        </div>
+                        <div class="col-md-12 pt-2" id="limit">
+                            <p>20%<span class="float-right">45%</span></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row" data-placement="top"
+                                 data-toggle="tooltip"
+                                 title="Aggressive Savings from Companies that
+                    adopt BEST PRACTICES with Our Smart /
+                    Rockstar Products, Processes and Services">
+                                <div class="col-md-7">
+                                    <label class="pt-2 ml-3" for="savingsAggressive ">Savings
+                                        - Aggressive</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group mb-3">
+                                        <input
+                                                class="form-control shadow shadow"
+                                                id="savingsAggressive"
+                                                name="savingsAggressive"
+                                                onblur="savingsAggressiveLimit()"
+                                                onkeyup="getResult()"
+                                                placeholder="15"
+                                                type="number"
+                                        />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <input
+                                    class="js-range-slider form-control shadow"
+                                    id="savingsAggressiveRange"
+                                    name="my_range"
+                                    onchange="changeSavingsAggressiveRange()"
+                                    type="text"
+                                    value="500"
+                            />
+                        </div>
+                        <div class="col-md-12 pt-2" id="limit">
+                            <p>33%<span class="float-right">60%</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="collapse" id="costsToCoverDuringVacancy">
+        <div class="row mt-3">
+            <div class="col-md-12 text-center">
+                <h3 class="blue"><b>Costs to Cover During Vacancy</b></h3>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div
+                        class="row"
+                        data-placement="top"
+                        data-toggle="tooltip"
+                        title="Number of days
+              position is vacant and others need to cover">
+                    <div class="col-md-12">
+                        <div class="row mt-3">
+                            <div class="col-md-7">
+                                <h1 class="text-center mb-5" style="color: #340952;
+                      font-weight: 600">
+                                    Team
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label
+                                        class="pt-2 ml-3"
+                                        for="averageNumberOfDaysPositionVacant">Average number of days position vacant</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input
+                                        class="form-control shadow"
+                                        id="averageNumberOfDaysPositionVacant"
+                                        name="averageNumberOfDaysPositionVacant"
+                                        onblur="averageNumberOfDaysPositionVacantLimiter()"
+                                        onkeyup="getResult()"
+                                        placeholder="15"
+                                        type="number"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <input
+                                class="js-range-slider form-control shadow"
+                                id="averageNumberOfDaysPositionVacantRange"
+                                name="my_range"
+                                onchange="changeSalaryForTalent()"
+                                type="text"
+                        />
+                    </div>
+                    <div class="col-md-12 pt-2" id="limit">
+                        <p>2<span class="float-right">40</span></p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row shadow p-2">
+                        <div class="col-md-12">
+                            <h6 for="totalCostsToCoverByEmployeeType">
+                                Total Costs to Cover Type:
+                                <span
+                                        class="sResult"
+                                        id="totalCostsToCoverByEmployeeType"></span>
+                            </h6>
+
+                            <h6 for="annualTotalCostsToCoverEmployee">
+                                Annual Total Costs to Cover:<span
+                                    class="sResult"
+                                    id="annualTotalCostsToCoverEmployee"></span>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div
+                        class="row"
+                        data-placement="top"
+                        data-toggle="tooltip"
+                        title="Number of days
+              position is vacant and others need to cover">
+                    <div class="col-md-12">
+                        <div class="row mt-3">
+                            <div class="col-md-7">
+                                <h1 class="text-center mb-5" style="color: #ff6813;
+                      font-weight: 600">
+                                    Leaders
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label
+                                        class="pt-2 ml-3"
+                                        for="averageNumberOfDaysPositionVacantForSupervisor">
+                                    Average number of days position vacant</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input
+                                        class="form-control shadow"
+                                        id="averageNumberOfDaysPositionVacantForSupervisor"
+                                        name="averageNumberOfDaysPositionVacantForSupervisor"
+                                        onblur="averageNumberOfDaysPositionVacantForSupervisorLimit()"
+                                        onkeyup="getResult()"
+                                        placeholder="15"
+                                        type="number"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <input
+                                class="js-range-slider form-control shadow"
+                                id="averageNumberOfDaysPositionVacantForSupervisorRange"
+                                name="my_range"
+                                onchange="averageNumberOfDaysPositionVacantForSupervisor()"
+                                type="text"
+                                value="500"
+                        />
+                    </div>
+                    <div class="col-md-12 pt-2" id="limit">
+                        <p>3<span class="float-right">40</span></p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row shadow p-2">
+                        <div class="col-md-12">
+                            <h6 for="totalCostsToCoverByEmployeeType">
+                                Total Costs to Cover Type:
+                                <span
+                                        class="sResult"
+                                        id="totalCostsToCoverBySupervisorsType"></span>
+                            </h6>
+
+                            <h6 for="annualTotalCostsToCoverEmployee">
+                                Annual Total Costs to Cover :
+                                <span
+                                        class="sResult"
+                                        id="annualTotalCostsToCoverSupervisors"></span>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="collapse" id="costsToSeparateEmployee">
+        <div class="row mt-3">
+            <div class="col-md-12 text-center">
+                <h3 class="blue"><b>Costs to Separate Team</b></h3>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div
+                        class="row"
+                        data-placement="top"
+                        data-toggle="tooltip"
+                        title="Hours formal and
+              informal associated with separation and terming
+              of an employee.">
+                    <div class="col-md-12">
+                        <div class="row mt-5">
+                            <div class="col-md-7">
+                                <h1 class="text-center mb-5" style="color: #340952;
+                      font-weight: 600">
+                                    Team
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label class="pt-2 ml-3" for="exitInterviewHours">Exit
+                                    interview hours</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input
+                                        class="form-control shadow"
+                                        id="exitInterviewHours"
+                                        name="exitInterviewHours"
+                                        onblur="exitInterviewHoursLimit()"
+                                        onkeyup="getResult()"
+                                        placeholder="8" type="number"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <input
+                                class="js-range-slider form-control shadow"
+                                id="exitInterviewHoursRange"
+                                name="my_range"
+                                onchange="changeFillPositionDays()"
+                                type="text"
+                                value="500"
+                        />
+                    </div>
+
+                    <div class="col-md-12 pt-2" id="limit">
+                        <p>2<span class="float-right">20</span></p>
+                    </div>
+                </div>
+                <div
+                        class="row"
+                        data-placement="top"
+                        data-toggle="tooltip"
+                        title="Equipment, Uniforms,
+              separation PTO pay, misc., etc.">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label class="pt-2 ml-3" for="miscellaneousSeparationCosts">Miscellaneous
+                                    separation costs
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                    <input
+                                            class="form-control shadow"
+                                            id="miscellaneousSeparationCosts"
+                                            name="miscellaneousSeparationCosts"
+                                            onblur="miscellaneousSeparationCostsLimit()"
+                                            onkeyup="getResult()"
+                                            placeholder="500$"
+                                            type="number"
+                                    /></div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <input
+                                class="js-range-slider form-control shadow"
+                                id="miscellaneousSeparationCostsRange"
+                                name="my_range"
+                                onchange="changeRampUpHire()"
+                                type="text"
+                        />
+                    </div>
+
+                    <div class="col-md-12 pt-2" id="limit">
+                        <p>$250<span class="float-right">$1,000</span></p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row shadow p-2">
+                        <div class="col-md-12">
+                            <h6>
+                                Exit Interview Cost:<span
+                                    class="sResult"
+                                    id="exitInterviewCostForEmployee"></span>
+                            </h6>
+                            <h6>
+                                Total Separation Costs by Team Type:
+                                <span
+                                        class="sResult"
+                                        id="totalSeparationCostsByEmployeeType"></span>
+                            </h6>
+                            <h6>
+                                Annual Total Separation Costs:
+                                <span
+                                        class="sResult"
+                                        id="annualTotalSeparationCosts"></span>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <br>
+                <div
+                        class="row"
+                        data-placement="top"
+                        data-toggle="tooltip"
+                        title="Hours formal and
+              informal associated with separation and terming
+              of an employee.">
+                    <div class="col-md-12">
+                        <div class="row mt-3">
+                            <div class="col-md-7">
+                                <h1 class="text-center mb-5" style="color: #ff6813;
+                      font-weight: 600">
+                                    Leaders
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label class="pt-2 ml-3" for="exitSupervisorInterviewHours">Exit
+                                    interview hours</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input
+                                        class="form-control shadow"
+                                        id="exitSupervisorInterviewHours"
+                                        name="exitSupervisorInterviewHours"
+                                        onblur="exitSupervisorInterviewHoursLimit()"
+                                        onkeyup="getResult()"
+                                        placeholder="8"
+                                        type="number"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <input
+                                class="js-range-slider form-control shadow"
+                                id="exitSupervisorInterviewHoursRange"
+                                name="my_range"
+                                onchange="changeExitSupervisorInterviewHours()"
+                                type="text"
+                                value="500"
+                        />
+                    </div>
+
+                    <div class="col-md-12 pt-2" id="limit">
+                        <p>3<span class="float-right">32</span></p>
+                    </div>
+                </div>
+                <div
+                        class="row"
+                        data-placement="top"
+                        data-toggle="tooltip"
+                        title="Equipment, Uniforms,
+              separation PTO pay, misc., etc.">
+                    <div class="col-md-12 pt-2">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label
+                                        class="pt-2 ml-3"
+                                        for="miscellaneousSupervisorSeparationCosts">Miscellaneous separation costs
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                    <input
+                                            class="form-control shadow"
+                                            id="miscellaneousSupervisorSeparationCosts"
+                                            name="miscellaneousSupervisorSeparationCosts"
+                                            onblur="miscellaneousSupervisorSeparationCostsLimit()"
+                                            onkeyup="getResult()"
+                                            placeholder="500$"
+                                            type="number"
+                                    /></div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <input
+                                class="js-range-slider form-control shadow"
+                                id="miscellaneousSupervisorSeparationCostsRange"
+                                name="my_range"
+                                onchange="changeMiscellaneousSupervisorSeparationCosts()"
+                                type="text"
+                                value="500"
+                        />
+                    </div>
+
+                    <div class="col-md-12 pt-2" id="limit">
+                        <p>$400<span class="float-right">$1,600</span></p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row shadow p-2">
+                        <div class="col-md-12">
+                            <h6>
+                                Exit Interview Cost:
+                                <span
+                                        class="sResult"
+                                        id="exitInterviewCostForSupervisor"></span>
+                            </h6>
+                            <h6>
+                                Total Separation Costs by Team Type:
+                                <span
+                                        class="sResult"
+                                        id="totalSeparationCostsBySupervisorType"></span>
+                            </h6>
+                            <h6>
+                                Annual Total Separation Costs:
+                                <span
+                                        class="sResult"
+                                        id="annualTotalSeparationCostsForSupervisor"></span>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="collapse" id="costsToHireReplacement">
+        <div class="row mt-3">
+            <div class="col-md-12 text-center">
+                <h3 class="blue"><b>Costs to Hire Replacement</b></h3>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div
+                        class="row"
+                        data-placement="top"
+                        data-toggle="tooltip"
+                        title="Hours leading up to
+              the formal interview">
+                    <div class="col-md-12">
+                        <div class="row mt-3">
+                            <div class="col-md-7">
+                                <h1 class="text-center mb-5" style="color: #340952;
+                      font-weight: 600">
+                                    Team
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label class="pt-2 ml-3" for="resumeScreeningHours">Resume
+                                    screening (hours)
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <input
+                                        class="form-control shadow"
+                                        id="resumeScreeningHours"
+                                        name="resumeScreeningHours"
+                                        onblur="resumeScreeningHoursLimit()"
+                                        onkeyup="getResult()"
+                                        placeholder="12" type="number"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <input
+                                class="js-range-slider form-control shadow"
+                                id="resumeScreeningRange"
+                                name="my_range"
+                                onchange="changeResumeScreeningRange()"
+                                type="text"
+                                value="500"
+                        />
+                    </div>
+
+                    <div class="col-md-12 pt-2" id="limit">
+                        <p>6<span class="float-right">24</span></p>
+                    </div>
+                </div>
+                <div
+                        class="row"
+                        data-placement="top"
+                        data-toggle="tooltip"
+                        title="Hours conducting
+              Interview and post interview follow-up">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label class="pt-2 ml-3" for="interviewingHours">Interviewing
+                                    (hours)
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <input
+                                        class="form-control shadow"
+                                        id="interviewingHours"
+                                        name="interviewingHours"
+                                        onblur="interviewingHoursLimit()"
+                                        onkeyup="getResult()"
+                                        placeholder="8" type="number"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <input
+                                class="js-range-slider form-control shadow"
+                                id="interviewingHoursRange"
+                                name="my_range"
+                                onchange="changeInterviewingHoursRange()"
+                                type="text"
+                                value="500"
+                        />
+                    </div>
+
+                    <div class="col-md-12 pt-2" id="limit">
+                        <p>2<span class="float-right">16</span></p>
+                    </div>
+                </div>
+                <div
+                        class="row"
+                        data-placement="top"
+                        data-toggle="tooltip"
+                        title="Uniforms, HR Records
+              Update, Onboarding Activities">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label
+                                        class="pt-2 ml-3"
+                                        for="miscellaneousOnboardingCostsPerPosition">
+                                    Miscellaneous onboarding costs / position
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                    <input
+                                            class="form-control shadow"
+                                            id="miscellaneousOnboardingCostsPerPosition"
+                                            name="miscellaneousOnboardingCostsPerPosition"
+                                            onblur="miscellaneousOnboardingCostsPerPositionLimit()"
+                                            onkeyup="getResult()"
+                                            placeholder="500$"
+                                            type="number"
+                                    /></div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <input
+                                class="js-range-slider form-control shadow"
+                                id="miscellaneousOnboardingCostsPerPositionRange"
+                                name="my_range"
+                                onchange="changeMiscellaneousOnboardingCostsPerPositionRange()"
+                                type="text"
+                                value="500"
+                        />
+                    </div>
+
+                    <div class="col-md-12 pt-2" id="limit">
+                        <p>$50<span class="float-right">$1,000</span></p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row shadow p-2">
+                        <div class="col-md-12">
+                            <h6>
+                                Total Hiring Manager Hours to fill position:
+                                <span
+                                        class="sResult"
+                                        id="totalHiringManagerHoursToFillPositionForEmployee"></span>
+                            </h6>
+                            <h6>
+                                Total Hiring Manager Cost to fill position:<span
+                                    class="sResult"
+                                    id="totalHiringManagerCostToFillPositionForEmployee"></span>
+                            </h6>
+                            <h6>
+                                Recruiting and Advertising Costs per position:
+                                <span
+                                        class="sResult"
+                                        id="recruitingAndAdvertisingCostsPerPositionForEmployee"></span>
+                            </h6>
+                            <h6>
+                                Total cost to Hire by Individual:
+                                <span
+                                        class="sResult"
+                                        id="totalCostToHireByEmployeeTypeForEmployee"></span>
+                            </h6>
+                            <h6>
+                                Annual costs to hire replacements:
+                                <span
+                                        class="sResult"
+                                        id="annualCostsToHireReplacementsForEmployee"></span>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div
+                        class="row"
+                        data-placement="top"
+                        data-toggle="tooltip"
+                        title="Hours leading up to
+              the formal interview">
+                    <div class="col-md-12">
+                        <div class="row mt-3">
+                            <div class="col-md-7">
+                                <h1 class="text-center mb-5" style="color: #ff6813;
+                      font-weight: 600">
+                                    Leaders
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label
+                                        class="pt-2 ml-3"
+                                        for="resumeSupervisorScreeningHours">Resume screening (hours)
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <input
+                                        class="form-control shadow"
+                                        id="resumeSupervisorScreeningHours"
+                                        name="resumeSupervisorScreeningHours"
+                                        onblur="resumeSupervisorScreeningHoursLimit()"
+                                        onkeyup="getResult()"
+                                        placeholder="12"
+                                        type="number"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <input
+                                class="js-range-slider form-control shadow"
+                                id="resumeSupervisorScreeningRange"
+                                name="my_range"
+                                onchange="changeResumeSupervisorScreeningRange()"
+                                type="text"
+                        />
+                    </div>
+
+                    <div class="col-md-12 pt-2" id="limit">
+                        <p>12<span class="float-right">40</span></p>
+                    </div>
+                </div>
+                <div
+                        class="row"
+                        data-placement="top"
+                        data-toggle="tooltip"
+                        title="Hours conducting
+              Interview and post interview follow-up">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label class="pt-2 ml-3" for="interviewingSupervisorHours">Interviewing
+                                    (hours)
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <input
+                                        class="form-control shadow"
+                                        id="interviewingSupervisorHours"
+                                        name="interviewingSupervisorHours"
+                                        onblur="interviewingSupervisorHoursLimit()"
+                                        onkeyup="getResult()"
+                                        placeholder="8"
+                                        type="number"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <input
+                                class="js-range-slider form-control shadow"
+                                id="interviewingSupervisorHoursRange"
+                                name="my_range"
+                                onchange="changeInterviewingSupervisorHoursRange()"
+                                type="text"
+                                value="500"
+                        />
+                    </div>
+
+                    <div class="col-md-12 pt-2" id="limit">
+                        <p>4<span class="float-right">32</span></p>
+                    </div>
+                </div>
+                <div
+                        class="row"
+                        data-placement="top"
+                        data-toggle="tooltip"
+                        title="Uniforms, HR Records
+              Update, Onboarding Activities">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label
+                                        class="pt-2 ml-3"
+                                        for="miscellaneousSupervisorOnboardingCostsPerPosition">Miscellaneous onboarding costs /
+                                    position
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                    <input
+                                            class="form-control shadow"
+                                            id="miscellaneousSupervisorOnboardingCostsPerPosition"
+                                            name="miscellaneousSupervisorOnboardingCostsPerPosition"
+                                            onblur="miscellaneousSupervisorOnboardingCostsPerPositionLimit()"
+                                            onkeyup="getResult()"
+                                            placeholder="500$"
+                                            type="number"
+                                    /></div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <input
+                                class="js-range-slider form-control shadow"
+                                id="miscellaneousSupervisorOnboardingCostsPerPositionRange"
+                                name="my_range"
+                                onchange="changeMiscellaneousSupervisorOnboardingCostsPerPositionRange()"
+                                type="text"
+                                value="500"
+                        />
+                    </div>
+
+                    <div class="col-md-12 pt-2" id="limit">
+                        <p>$100<span class="float-right">$2,000</span></p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row shadow p-2">
+                        <div class="col-md-9 col-sm-9 col-9">
+                            <h6>
+                                Total Hiring Manager Hours to fill position:
+                                <span
+                                        class="sResult"
+                                        id="totalHiringManagerHoursToFillPositionForSupervisor"></span>
+                            </h6>
+                            <h6>
+                                Total Hiring Manager Cost to fill position:
+                                <span
+                                        class="sResult"
+                                        id="totalHiringManagerCostToFillPositionForSupervisor"></span>
+                            </h6>
+                            <h6>
+                                Recruiting and Advertising Costs per position:
+                                <span
+                                        class="sResult"
+                                        id="recruitingAndAdvertisingCostsPerPositionForSupervisor"></span>
+                            </h6>
+                            <h6>
+                                Total cost to Hire by Individual:
+                                <span
+                                        class="sResult"
+                                        id="totalCostToHireByEmployeeTypeForSupervisor"></span>
+                            </h6>
+                            <h6>
+                                Annual costs to hire replacements:
+                                <span
+                                        class="sResult"
+                                        id="annualCostsToHireReplacementsForSupervisor"></span>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="collapse" id="costOfNewHireTraining">
+        <div class="row mt-3">
+            <div class="col-md-12 text-center">
+                <h3 class="blue"><b>Costs of new hire training</b></h3>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div
+                        class="row"
+                        data-placement="top"
+                        data-toggle="tooltip"
+                        title="Total average training hours per resource">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h1 class="text-center mb-5" style="color: #340952;
+                      font-weight: 600">
+                                    Team
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label class="pt-2 ml-3" for="totalTrainingHours">
+                                    Total training hours
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <input
+                                        class="form-control shadow"
+                                        id="totalTrainingHours"
+                                        name="totalTrainingHours"
+                                        onblur="totalTrainingHoursLimit()"
+                                        onkeyup="getResult()"
+                                        placeholder="40" type="number"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <input
+                                class="js-range-slider form-control shadow"
+                                id="totalTrainingHoursRange"
+                                name="my_range"
+                                onchange="changeTotalTrainingHoursRange()"
+                                type="text"
+                                value="500"
+                        />
+                    </div>
+
+                    <div class="col-md-12 pt-2" id="limit">
+                        <p>10<span class="float-right">100</span></p>
+                    </div>
+                </div>
+                <div
+                        class="row"
+                        data-placement="top"
+                        data-toggle="tooltip"
+                        title="Software, training
+              aids and materials, etc.">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label class="pt-2 ml-3" for="otherTrainingCosts">Other
+                                    training costs
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                    <input
+                                            class="form-control shadow"
+                                            id="otherTrainingCosts"
+                                            name="otherTrainingCosts"
+                                            onblur="otherTrainingCostsLimit()"
+                                            onkeyup="getResult()"
+                                            placeholder="200$" type="number"
+                                    /></div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <input
+                                class="js-range-slider form-control shadow"
+                                id="otherTrainingCostsRange"
+                                name="my_range"
+                                onchange="changeOtherTrainingCostsRange()"
+                                type="text"
+                                value="500"
+                        />
+                    </div>
+
+                    <div class="col-md-12 pt-2" id="limit">
+                        <p>$200<span class="float-right">$5,000</span></p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row shadow p-2">
+                        <div class="col-md-12">
+                            <h6>
+                                Trainee Attendance Cost
+                                <span
+                                        class="sResult"
+                                        id="traineeAttendanceCostForEmployee"></span>
+                            </h6>
+                            <h6>
+                                Mentor / Trainer Cost<span
+                                    class="sResult"
+                                    id="mentorTrainerCostForEmployee"></span>
+                            </h6>
+                            <h6>
+                                Total Cost New Hire Training Cost by Team Type
+                                <span
+                                        class="sResult"
+                                        id="totalCostNewHireTrainingCostByEmployeeTypeForEmployee"></span>
+                            </h6>
+                            <h6>
+                                Annual Total New Hire Training Costs
+                                <span
+                                        class="sResult"
+                                        id="annualTotalNewHireTrainingCostsForEmployee"></span>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div
+                        class="row"
+                        data-placement="top"
+                        data-toggle="tooltip"
+                        title="Total average training hours per resource">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h1 class="text-center mb-5" style="color: #ff6813;
+                      font-weight: 600">
+                                    Leaders
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label class="pt-2 ml-3" for="totalSupervisorTrainingHours">Total
+                                    training hours
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <input
+                                        class="form-control shadow"
+                                        id="totalSupervisorTrainingHours"
+                                        name="totalSupervisorTrainingHours"
+                                        onblur="totalSupervisorTrainingHoursLimit()"
+                                        onkeyup="getResult()"
+                                        placeholder="40"
+                                        type="number"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <input
+                                class="js-range-slider form-control shadow"
+                                id="totalSupervisorTrainingHoursRange"
+                                name="my_range"
+                                onchange="changeTotalSupervisorTrainingHoursRange()"
+                                type="text"
+                                value="500"
+                        />
+                    </div>
+
+                    <div class="col-md-12 pt-2" id="limit">
+                        <p>40<span class="float-right">400</span></p>
+                    </div>
+                </div>
+                <div
+                        class="row"
+                        data-placement="top"
+                        data-toggle="tooltip"
+                        title="Software, training
+              aids and materials, etc.">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label class="pt-2 ml-3" for="otherSupervisorTrainingCosts">Other
+                                    training costs
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                    <input
+                                            class="form-control shadow"
+                                            id="otherSupervisorTrainingCosts"
+                                            name="otherSupervisorTrainingCosts"
+                                            onblur="otherSupervisorTrainingCostsLimit()"
+                                            onkeyup="getResult()"
+                                            placeholder="200$"
+                                            type="number"
+                                    /></div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <input
+                                class="js-range-slider form-control shadow"
+                                id="otherSupervisorTrainingCostsRange"
+                                name="my_range"
+                                onchange="changeOtherSupervisorTrainingCostsRange()"
+                                type="text"
+                                value="500"
+                        />
+                    </div>
+
+                    <div class="col-md-12 pt-2" id="limit">
+                        <p>$500<span class="float-right">$25,000</span></p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row shadow p-2">
+                        <div class="col-md-12">
+                            <h6>
+                                Trainee Attendance Cost:
+                                <span
+                                        class="sResult"
+                                        id="traineeAttendanceCostForSupervisor"></span>
+                            </h6>
+                            <h6>
+                                Mentor / Trainer Cost
+                                <span
+                                        class="sResult"
+                                        id="mentorTrainerCostForSupervisor"></span>
+                            </h6>
+                            <h6>
+                                Total Cost New Hire Training Cost by Team Type
+                                <span
+                                        class="sResult"
+                                        id="totalCostNewHireTrainingCostByEmployeeTypeForSupervisor"></span>
+                            </h6>
+                            <h6>
+                                Annual Total New Hire Training Costs
+                                <span
+                                        class="sResult"
+                                        id="annualTotalNewHireTrainingCostsForSupervisor"></span>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="collapse" id="costOfLostProductivity">
+        <div class="row mt-3">
+            <div class="col-md-12 text-center">
+                <h3 class="blue"><b>Costs of Lost Productivity</b></h3>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div
+                        class="row"
+                        data-placement="top"
+                        data-toggle="tooltip"
+                        title="Number of working days to normally achieve full
+              productivity">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h1 class="text-center mb-5" style="color: #340952;
+                      font-weight: 600">
+                                    Team
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label class="pt-2 ml-3" for="daysTo100Productivity">Days to
+                                    100 % productivity of
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+
+
+                                <input
+                                        class="form-control shadow"
+                                        id="daysTo100Productivity"
+                                        name="daysTo100Productivity"
+                                        onblur="daysTo100ProductivityLimit()"
+                                        onkeyup="getResult()"
+                                        placeholder="28"
+                                        type="number"
+                                />
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <input
+                                class="js-range-slider form-control shadow"
+                                id="daysTo100ProductivityRange"
+                                name="my_range"
+                                onchange="changeDaysTo100ProductivityRange()"
+                                type="text"
+                                value="28"
+                        />
+                    </div>
+
+                    <div class="col-md-12 pt-2" id="limit">
+                        <p>21<span class="float-right">90</span></p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row shadow p-2">
+                        <div class="col-md-12">
+                            <h6>
+                                Daily Cost
+                                <span class="sResult" id="dailyCostForEmployee"></span>
+                            </h6>
+                            <h6>
+                                Total Cost of Lost Productivity per Team Type
+                                <span
+                                        class="sResult"
+                                        id="totalCostOfLostProductivityPerEmployeeTypeForEmployee"></span>
+                            </h6>
+                            <h6>
+                                Annual Total Lost Productivity Costs
+                                <span
+                                        class="sResult"
+                                        id="annualTotalLostProductivityCostsForEmployee"></span>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div
+                        class="row"
+                        data-placement="top"
+                        data-toggle="tooltip"
+                        title="Number of working days to normally achieve full
+              productivity">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h1 class="text-center mb-5" style="color: #ff6813;
+                      font-weight: 600">
+                                    Leaders
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label
+                                        class="pt-2 ml-3"
+                                        for="daysTo100ProductivitySupervisor">Days to 100 % productivity of
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+
+
+                                <input
+                                        class="form-control shadow"
+                                        id="daysTo100ProductivitySupervisor"
+                                        name="daysTo100ProductivitySupervisor"
+                                        onblur="daysTo100ProductivitySupervisorLimit()"
+                                        onkeyup="getResult()"
+                                        placeholder="28"
+                                        type="number"
+                                />
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <input
+                                class="js-range-slider form-control shadow"
+                                id="daysTo100ProductivitySupervisorRange"
+                                name="my_range"
+                                onchange="changeDaysTo100ProductivitySupervisorRange()"
+                                type="text"
+                                value="28"
+                        />
+                    </div>
+
+                    <div class="col-md-12 pt-2" id="limit">
+                        <p>40<span class="float-right">120</span></p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row shadow p-2">
+                        <div class="col-md-12">
+                            <h6>
+                                Daily Cost
+                                <span class="sResult" id="dailySupervisor"></span>
+                            </h6>
+                            <h6>
+                                Total Cost of Lost Productivity per Team Type
+                                <span
+                                        class="sResult"
+                                        id="totalCostOfLostProductivityPerEmployeeTypeForSupervisor"></span>
+                            </h6>
+                            <h6>
+                                Annual Total Lost Productivity Costs
+                                <span
+                                        class="sResult"
+                                        id="annualTotalLostProductivityCostsForSupervisor"></span>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 mt-4">
+        <div class="row">
+
+            <div class="col-md-12">
+                <a
+                        aria-controls="hourlyRate"
+                        aria-expanded="false"
+                        class="col-md-3 m-2"
+                        data-target="#"
+                        data-toggle="collapse"
+                        type="button">
+                </a>
+                <a
+                        aria-controls="hourlyRate"
+                        aria-expanded="false"
+                        class="btn btn-primary col-md-3 m-2"
+                        data-target="#subLinks"
+                        data-toggle="collapse"
+                        onclick="HideAllButtonDives()"
+                        type="button">Cost of Turnover by Category
+                    <i class="fa-solid fa-chevron-down" id="down7"></i>
+                    <i class="fa-solid fa-chevron-up d-none" id="up7"></i>
+                </a>
+
+                <a
+                        aria-controls="hourlyRate"
+                        aria-expanded="false"
+                        class="btn btn-primary col-md-3 m-2"
+                        data-target="#hourlyRate"
+                        data-toggle="collapse"
+                        onclick="calculatePreSet()"
+                        type="button">View Pre-set Values
+                    <i class="fa-solid fa-chevron-down" id="down6"></i>
+                    <i class="fa-solid fa-chevron-up d-none" id="up6"></i>
+                </a>
+            </div>
+            <div class="col-md-12">
+                <div class="collapse" id="subLinks">
+
+                    <a
+                            aria-controls="collapse"
+                            aria-expanded="false"
+                            class="btn col-md-3 btn-primary m-2 ml-3"
+                            data-target="#costsToCoverDuringVacancy"
+                            data-toggle="collapse"
+                            onclick="ArrowHandling1()"
+                            type="button">
+                        Costs to Cover During Vacancy
+                        <i class="fa-solid fa-chevron-down" id="down1"></i>
+                        <i class="fa-solid fa-chevron-up d-none" id="up1"></i>
+                    </a>
+                    <a
+                            aria-controls="hourlyRate"
+                            aria-expanded="false"
+                            class="btn col-md-2 btn-primary m-2"
+                            data-target="#costsToSeparateEmployee"
+                            data-toggle="collapse"
+                            onclick="ArrowHandling2()"
+                            type="button">Costs to Separate Team
+                        <i class="fa-solid fa-chevron-down" id="down2"></i>
+                        <i class="fa-solid fa-chevron-up d-none" id="up2"></i>
+                    </a>
+                    <a
+                            aria-controls="hourlyRate"
+                            aria-expanded="false"
+                            class="btn col-md-2 btn-primary m-2"
+                            data-target="#costsToHireReplacement"
+                            data-toggle="collapse"
+                            onclick="ArrowHandling3()"
+                            type="button">Costs to Hire Replacement
+                        <i class="fa-solid fa-chevron-down" id="down3"></i>
+                        <i class="fa-solid fa-chevron-up d-none" id="up3"></i>
+                    </a>
+                    <a
+                            aria-controls="hourlyRate"
+                            aria-expanded="false"
+                            class="btn col-md-2 btn-primary m-2"
+                            data-target="#costOfNewHireTraining "
+                            data-toggle="collapse"
+                            onclick="ArrowHandling4()"
+                            type="button">Cost of new hire training
+                        <i class="fa-solid fa-chevron-down" id="down4"></i>
+                        <i class="fa-solid fa-chevron-up d-none" id="up4"></i>
+                    </a>
+                    <a
+                            aria-controls="hourlyRate"
+                            aria-expanded="false"
+                            class="btn col-md-2 btn-primary m-2"
+                            data-target="#costOfLostProductivity"
+                            data-toggle="collapse"
+                            onclick="ArrowHandling5()"
+                            type="button">Cost Of Lost Productivity
+                        <i class="fa-solid fa-chevron-down" id="down5"></i>
+                        <i class="fa-solid fa-chevron-up d-none" id="up5"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div aria-hidden="true" aria-labelledby="modelTitleId" class="modal fade"
+     id="modelId" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Get your PDF</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal"
+                        type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <!-- <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST"> -->
+
+                    <input name="oid" type=hidden value="00D8c000008Q9G4">
+                    <input name="retURL" type=hidden value="https://hirerockstartalent.com/thank-you/">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="firstName">First Name</label>
+                            <input
+                                    class="form-control shadow"
+                                    id="firstName"
+                                    name="first_name"
+                                    onchange="validation()"
+                                    placeholder="First Name" type="text"/>
+                            <p class="text-danger d-none mt-2" id="firstName1">please enter First Name</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="lastName">Last Name</label>
+                            <input
+                                    class="form-control shadow"
+                                    id="lastName"
+                                    name="last_name"
+                                    onchange="validation()"
+                                    placeholder="Last Name" type="text"/>
+                            <p class="text-danger d-none mt-2" id="lastName1">please enter Last Name</p>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label for="companyName">Company Name</label>
+                            <input
+                                    class="form-control shadow"
+                                    id="companyName"
+                                    name="company"
+                                    onchange="validation()"
+                                    placeholder="Company Name" type="text"/>
+                            <p class="text-danger d-none mt-2" id="companyName1">please enter Company Name</p>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email">Email</label>
+                            <input
+                                    class="form-control shadow"
+                                    id="email"
+                                    name="email"
+                                    onchange="validation()"
+                                    placeholder="Example@gmail.com" type="text"/>
+                            <p class="text-danger d-none mt-2" id="email1">please enter your valid email</p>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label for="phone">Phone Number</label>
+                            <input
+                                    class="form-control shadow"
+                                    id="phone"
+                                    name="phone"
+                                    onchange="validation()"
+                                    placeholder="XXX-XXX-XXXX" type="number"/>
+                            <p class="text-danger d-none mt-2" id="phone1">please enter your Phone number</p>
+                        </div>
+                    </div>
+
+
+                    <input
+                            class="form-control shadow mt-3"
+                            id="lead_source"
+                            name="lead_source"
+                            type="hidden"
+                            value="Calculator Page"/>
+
+<!--                    <input-->
+<!--                            class="form-control shadow mt-3"-->
+<!--                            id="organizationId"-->
+<!--                            name="organizationId"-->
+<!--                            type="hidden"-->
+<!--                            value="00D8c000008Q9G4"/>-->
+
+                    <input
+                            class="form-control shadow mt-3"
+                            id="Campaign_ID"
+                            name="Campaign_ID"
+                            type="hidden"
+                            value="7018c000001MmtI"/>
+
+                    <!-- <label for="lead_source">Lead Source</label>
+                    <select id="lead_source" name="lead_source" class="form-control" onchange="validation()">
+                    <option value="">--None--</option>
+                    <option value="Advertisement">Advertisement</option>
+                    <option value="Calculator Page">Calculator Page</option>
+                    <option value="Contact Us Form/Page">Contact Us Form/Page</option>
+                    <option value="Download">Download</option>
+                    <option value="Google Search">Google Search</option>
+                    <option value="Referral">Referral</option>
+                    <option value="Social Media">Social Media</option>
+                    <option value="Trade Show/ Event">Trade Show/Event</option>
+                    <option value="Other">Other</option>
+                    </select>
+
+                    <label for="Campaign_ID">Campaign</label>
+                    <select id="Campaign_ID" name="Campaign_ID" class="form-control" onchange="validation()">
+                    <option value="">--None--</option>
+                    <option value="7018c000001hXmI">Website Downloads</option>
+                    <option value="7018c000001MmtI">Calculator Campaign</option>
+                    <option value="7018c000001hWlq">New Website Leads</option>
+                    <option value="7018c000001hXBb">NEPC - New England Pizza Conference</option>
+                    <option value="7018c000001hXiw">2022 NEPC - New England Pizza Conference Follow Up</option>
+                    </select> -->
+
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-dismiss="modal"
+                                type="button">Close
+                        </button>
+                        <button class="btn btn-primary" onclick="generatePDF()" type="submit">Save</button>
+                    </div>
+                <!-- </form> -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container d-none" id="costOfTurnover">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="text-center" style=" color:#ffff; padding-top: 5%;">Annual Turnover in $ & ¢ : <span
+                    id="result1"></span></h4>
+            <!-- <p>% of ANNUAL SALARY &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Total Cost per Turnover</span> <span>Total Annual Cost</span></p> -->
+
+            <!-- first table to Print in Pdf -->
+            <table class="table table-bordered" id="simple_table">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">% of ANNUAL SALARY</th>
+                    <th scope="col">Total Cost per Turnover</th>
+                    <th scope="col">Total Annual Cost</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">
+                        Team
+                    </th>
+                    <td>
+                        <p
+
+                                id="employeePerOfAnnualSalary1"></p>
+                    </td>
+                    <td>
+                        <p
+
+                                id="totalCostOfTurnoverPerResourceEmployeeType1"></p>
+                    </td>
+                    <td>
+                        <p
+
+                                id="totalAnnualCostOfTurnoverEmployee1"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <p>Leaders</p>
+                    </th>
+                    <td>
+                        <p
+
+                                id="supervisorPerOfAnnualSalary1"></p>
+                    </td>
+                    <td>
+                        <p
+
+                                id="totalCostOfTurnoverPerResourceSupervisorType1"></p>
+                    </td>
+                    <td>
+                        <p
+
+                                id="totalAnnualCostOfTurnoverSupervisor1"></p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- first end table to Print in Pdf -->
+
+            <!-- Second table to Print in Pdf -->
+            <table class="table table-bordered " id="simple_table2">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">
+                        <p class="text-center">Cost Savings</p>
+                    </th>
+                    <th scope="col">
+                        <p class="text-center">
+                            Expected Additional Revenue
+                        </p>
+                    </th>
+                    <th scope="col">
+                        <p class="text-center">
+                            Bottom Line Annual Impact
+                        </p>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">
+                        <p class="text-center">Expected</p>
+                    </th>
+                    <td>
+                        <p
+                                class="text-center"
+                                id="costSaving1"></p>
+                    </td>
+                    <td>
+                        <p
+                                class="text-center"
+                                id="expectedAdditionalRevenueAfterCogsForEmployee1"></p>
+                    </td>
+                    <td>
+                        <p
+                                class="text-center"
+                                id="totalBottomLineProfit1"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <p class="text-center">Typical</p>
+                    </th>
+                    <td>
+                        <p
+                                class="text-center"
+                                id="costSavingForTypical1"></p>
+                    </td>
+                    <td>
+                        <p
+                                class="text-center"
+                                id="expectedAdditionalRevenueAfterCogsForTypical1"></p>
+                    </td>
+                    <td>
+                        <p
+                                class="text-center"
+                                id="totalBottomLineProfitForTypical1"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <p class="text-center">Aggressive</p>
+                    </th>
+                    <td>
+                        <p
+                                class="text-center"
+                                id="costSavingForAggressive1"></p>
+                    </td>
+                    <td>
+                        <p
+                                class="text-center"
+                                id="expectedAdditionalRevenueAfterCogsForAggressive1"></p>
+                    </td>
+                    <td>
+                        <p
+                                class="text-center"
+                                id="totalBottomLineProfitForAggressive1"></p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- Second end table to Print in Pdf -->
+
+            <!-- Third table to Print in Pdf -->
+
+            <table class="table table-bordered " id="simple_table3">
+                <thead>
+                <tr>
+                    <th>User Entered Fields</th>
+                    <th>Team</th>
+                    <th>Leaders</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Annual Revenue</th>
+                    <th class="text-center" colspan="2" id="annualRevenue"></th>
+                </tr>
+                <tr>
+                    <th>Average staff size</th>
+                    <th id="averageStaffTeam"></th>
+                    <th id="averageStaffLeader"></th>
+                </tr>
+                <tr>
+                    <th>Number of W2's</th>
+                    <th id="numberOfW2sTeam"></th>
+                    <th id="numberOfW2sLeaders"></th>
+                </tr>
+                <tr>
+                    <th>Average hourly salary</th>
+                    <th id="averageHourlySalaryTeam"></th>
+                    <th id="averageHourlySalaryLeaders"></th>
+                </tr>
+                <tr>
+                    <th>Average number of days position vacant</th>
+                    <th id="averageNumberOfDaysPositionVacantTeam"></th>
+                    <th id="averageNumberOfDaysPositionVacantLeaders"></th>
+                </tr>
+                <tr>
+                    <th>Exit interview hours</th>
+                    <th id="exitInterviewHoursTeam"></th>
+                    <th id="exitInterviewHoursLeaders"></th>
+                </tr>
+                <tr>
+                    <th>Miscellaneous separation costs</th>
+                    <th id="miscellaneousSeparationCostsTeam"></th>
+                    <th id="miscellaneousSeparationCostsLeaders"></th>
+                </tr>
+                <tr>
+                    <th>Resume screening (hours)</th>
+                    <th id="resumeTeam"></th>
+                    <th id="resumeLeaders"></th>
+                </tr>
+                <tr>
+                    <th>Interviewing (hours)</th>
+                    <th id="interviewingTeam"></th>
+                    <th id="interviewingLeaders"></th>
+                </tr>
+                <tr>
+                    <th>Miscellaneous onboarding costs / position</th>
+                    <th id="miscellaneousTeam"></th>
+                    <th id="miscellaneousLeaders"></th>
+                </tr>
+                <tr>
+                    <th>Total training hours</th>
+                    <th id="totalTrainingHoursTeam"></th>
+                    <th id="totalTrainingHoursLeaders"></th>
+                </tr>
+                <tr>
+                    <th>Other training costs</th>
+                    <th id="otherTrainingCostsTeam"></th>
+                    <th id="otherTrainingCostsLeaders"></th>
+                </tr>
+                <tr>
+                    <th>Days to 100 % productivity of</th>
+                    <th id="daysTo100ProductivityTeam"></th>
+                    <th id="daysTo100ProductivityLeaders"></th>
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- Third end table to Print in Pdf -->
+
+            <!-- Fourth Table to Print Calculate Pre-Set -->
+
+            <table class="table table-bordered " id="simple_table4">
+                <thead>
+                <tr>
+                    <th colspan="2">Following attributes are shared by both Team and Leaders</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Mentor/Training manager hourly rate</th>
+                    <th class="text-center" id="mentorTrainingManagerHourlyRateSt"></th>
+                </tr>
+                <tr>
+                    <th>Hiring / Termination manager hourly rate</th>
+                    <th id="hiringTerminationSt"></th>
+                </tr>
+                <tr>
+                    <th>Ave hours in working day</th>
+                    <th id="aveHoursSt"></th>
+                </tr>
+                <tr>
+                    <th>Annual recruiting costs</th>
+                    <th id="annualRecruitingSt"></th>
+                </tr>
+                <tr>
+                    <th>Ave working days per year</th>
+                    <th id="aveWorkingSt"></th>
+                </tr>
+                <tr>
+                    <th>Savings - Expected</th>
+                    <th id="savingExpectedSt"></th>
+                </tr>
+                <tr>
+                    <th>Savings - Typical</th>
+                    <th id="savingTypicalSt"></th>
+                </tr>
+                <tr>
+                    <th>Savings - Aggressive</th>
+                    <th id="savingAggressiveSt"></th>
+                </tr>
+                </tbody>
+            </table>
+
+
+            <!-- Fourth Table to Print Calculate Pre-Set end -->
+
+
+        </div>
+    </div>
+</div>
+
+
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
+
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
+<script
+        crossorigin="anonymous"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="./employeeScript.js"></script>
+<script src="./supervisorScript.js"></script>
+<script src="./formulaScript.js"></script>
+<script src="./limiter.js"></script>
+<script src="./Pdf.js"></script>
+<script src="./iframeResizer.contentWindow.min.js"></script>
+<script src="./disable.js"></script>
+</body>
+</html>
